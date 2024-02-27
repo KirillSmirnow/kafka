@@ -1,0 +1,14 @@
+version: '3'
+services:
+  kafka:
+    build: .
+    restart: always
+    network_mode: host
+    volumes:
+      - kafka:/kafka-logs
+    command: bash -c "
+      ./bin/kafka-storage.sh format --config ./config/server.properties --cluster-id=9BZoyCkPRHapRsKhCqUakA --ignore-formatted &&
+      ./bin/kafka-server-start.sh ./config/server.properties
+      "
+volumes:
+  kafka:
